@@ -17,6 +17,23 @@ HORSES_RENAMED_COLUMNS = {
     'remate': 'Remate',
     'source': 'Source',
 }
+
+DAMS_RENAMED_COLUMNS = {
+    'name': 'Name',
+    'studbook_id': 'Studbook ID',
+    'padrillo': 'Sire',
+    'M': 'Dam',
+    'birth_eday':'Birth Date',
+    'sex': 'Sex',
+    'haras': 'Haras',
+    'remate': 'Remate',
+    'source': 'Source',
+    'inbreedingCoefficient': 'Inbreeding Coefficient',
+    'highInbreedingPadrillos': 'High Inbreeding Padrillos',
+    'mother': 'Mother',
+    'Momsiblings': 'Mothers Siblings',
+    'uncles': 'Uncles'
+}
 # Define which columns to show filters for
 HORSES_FILTER_COLUMNS = ['name', 'studbook_id', 'padrillo', 'M', 'sex', 'haras', 'remate', 'source']
 DAMS_FILTER_COLUMNS = ['name', 'padrillo', 'M', 'sex', 'haras', 'link']
@@ -50,6 +67,9 @@ def index():
         # Load both datasets
         horses_df = load_data(CSV_PATH)
         dams_df = load_data(DAMS_CSV_PATH)
+
+        dams_df.rename(columns=DAMS_RENAMED_COLUMNS, inplace=True)
+        dams_df = dams_df.iloc[:, [0,12,13,1,2,3,4,15,5,6,7,8,9,10,11,14,16]]
 
         horses_df.rename(columns=HORSES_RENAMED_COLUMNS, inplace=True)
         horses_df = horses_df.iloc[:, [0,1,6,7,8,2,3,4,5,10,9,11,12,13,14,15,16]]
