@@ -4,9 +4,8 @@ import os
 
 app = Flask(__name__)
 
-CSV_PATH = os.path.join("opt/render/project/src/Data/merged_auctions.csv")
-DAMS_CSV_PATH = os.path.join("opt/render/project/src/Data/merge_auction_dams.csv")
-
+CSV_PATH = os.path.join("/opt/render/project/src/Data/merged_auctions.csv")
+DAMS_CSV_PATH = os.path.join("/opt/render/project/src/Data/merge_auction_dams.csv")
 HORSES_RENAMED_COLUMNS = {
     'name': 'Name',
     'studbook_id': 'Studbook ID',
