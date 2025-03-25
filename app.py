@@ -17,7 +17,6 @@ HORSES_RENAMED_COLUMNS = {
     'remate': 'Remate',
     'source': 'Source',
 }
-
 DAMS_RENAMED_COLUMNS = {
     'name': 'Name',
     'studbook_id': 'Studbook ID',
@@ -28,13 +27,14 @@ DAMS_RENAMED_COLUMNS = {
     'haras': 'Haras',
     'remate': 'Remate',
     'source': 'Source',
-    'inbreedingCoefficient': 'Inbreeding Coefficient',
-    'highInbreedingPadrillos': 'High Inbreeding Padrillos',
-    'mother': 'Mother',
-    'Momsiblings': 'Mothers Siblings',
-    'uncles': 'Uncles'
+    'inbreedingCoefficient': 'Avg. Inbreeding Coefficient(if IC<0.05)',
+    'highInbreedingPadrillos': 'High Inbreeding(3 internal sires)',
+    'mother': 'Dams Age and Racing Career',
+    'Momsiblings': 'Dams Offsprings',
+    'uncles': 'Dams Siblings',
+    'dams_parents_career':'Dams Parents Career',
 }
-
+# Define which columns to show filters for
 HORSES_FILTER_COLUMNS = ['Name', 'Studbook_id', 'Sire', 'Dam', 'Sex', 'Haras', 'Remate', 'Source']
 DAMS_FILTER_COLUMNS = ['Name', 'Sire', 'Dam', 'Sex', 'Haras', 'Link']
 
@@ -45,11 +45,15 @@ def load_data(file_path):
     df = pd.read_csv(file_path)
     
     # Convert PS, PR, and PRS to percentages
-    percentage_columns = ['PS', 'PR', 'PRS','PB','PBRS']
+    percentage_columns = ['PS', 'PR', 'PRS','PB','PBRS', 'inbreedingCoefficient']
     for col in percentage_columns:
         if col in df.columns:
             df[col] = (df[col]*100).round(2).astype(str)+"%"
-    
+
+    rounded_columns =[ 'mother', 'Momsiblings','uncles','dams_parents_career' ]
+    for col in rounded_columns:
+        if col in df.columns:
+            df[col] = df[col].round(2).astype(str)
     return df
 
 def filter_dataframe(df, filters):
@@ -64,7 +68,7 @@ def filter_dataframe(df, filters):
 @app.route('/')
 def index():
     try:
-        # Load both datasets
+         # Load both datasets
         horses_df = load_data(CSV_PATH)
         dams_df = load_data(DAMS_CSV_PATH)
 
