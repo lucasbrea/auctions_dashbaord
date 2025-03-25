@@ -34,9 +34,9 @@ DAMS_RENAMED_COLUMNS = {
     'Momsiblings': 'Mothers Siblings',
     'uncles': 'Uncles'
 }
-# Define which columns to show filters for
-HORSES_FILTER_COLUMNS = ['name', 'studbook_id', 'padrillo', 'M', 'sex', 'haras', 'remate', 'source']
-DAMS_FILTER_COLUMNS = ['name', 'padrillo', 'M', 'sex', 'haras', 'link']
+
+HORSES_FILTER_COLUMNS = ['Name', 'Studbook_id', 'Sire', 'Dam', 'Sex', 'Haras', 'Remate', 'Source']
+DAMS_FILTER_COLUMNS = ['Name', 'Sire', 'Dam', 'Sex', 'Haras', 'Link']
 
 def load_data(file_path):
     if not os.path.exists(file_path):
